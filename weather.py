@@ -25,18 +25,18 @@ baseUrl = "https://api.darksky.net/forecast/" + apiKey + "/" + latitude + "," + 
 exclude = "?exclude=" + excludedFlags
 
 csvWriter.writerow(["summary",
-					"icon",
-					"precipIntensity",
-					"precipIntensityMax",
-					"temperatureHigh",
-					"temperatureHigTime",
-					"temperatureLow",
-					"temperatureLowTime",
-					"humidity",
-					"pressure",
-					"windSpeed",
-					"cloudCover",
-					"visibility"])
+		    "icon",
+		    "precipIntensity",
+		    "precipIntensityMax",
+		    "temperatureHigh",
+		    "temperatureHigTime",
+		    "temperatureLow",
+		    "temperatureLowTime",
+		    "humidity",
+		    "pressure",
+		    "windSpeed",
+		    "cloudCover",
+		    "visibility"])
 
 while timestamp < limit:
     weatherRequest = requests.get(baseUrl + str(timestamp) + exclude)
@@ -44,18 +44,18 @@ while timestamp < limit:
 
     for data in weatherJson['daily']['data']:
         csvWriter.writerow([data["summary"],
-        					data["icon"],
-        					data["precipIntensity"],
-        					data["precipIntensityMax"],
-        					data["temperatureHigh"],
-        					data["temperatureHighTime"],
-        					data["temperatureLow"],
-        					data["temperatureLowTime"],
-        					data["humidity"],
-        					data["pressure"],
-        					data["windSpeed"],
-        					data["cloudCover"],
-        					data["visibility"]])
+			    data["icon"],
+			    data["precipIntensity"],
+			    data["precipIntensityMax"],
+			    data["temperatureHigh"],
+			    data["temperatureHighTime"],
+			    data["temperatureLow"],
+			    data["temperatureLowTime"],
+			    data["humidity"],
+			    data["pressure"],
+			    data["windSpeed"],
+			    data["cloudCover"],
+			    data["visibility"]])
 
     print("Weather from: " + datetime.utcfromtimestamp(timestamp).strftime("%d/%m/%Y"))
     timestamp += 604800
