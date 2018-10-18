@@ -18,28 +18,46 @@ timestamp = 1167670800
 # Limit is set to 31th December 2017 at 12pm (Chicago hour)
 limit = 1514739600
 
-# Open file for writing
-weatherCsv = open('weather.csv', 'w')
-
 # Create the csv writer
-csvWriter = csv.writer(weatherCsv)
+csvWriter = csv.writer(open('weather.csv', 'wb+'))
 
 baseUrl = "https://api.darksky.net/forecast/" + apiKey + "/" + latitude + "," + longitude + ","
 exclude = "?exclude=" + excludedFlags
 
-header = False
+csvWriter.writerow(["summary",
+					"icon",
+					"precipIntensity",
+					"precipIntensityMax",
+					"temperatureHigh",
+					"temperatureHigTime",
+					"temperatureLow",
+					"temperatureLowTime",
+					"humidity",
+					"pressure",
+					"windSpeed",
+					"cloudCover",
+					"visibility"])
 
 while timestamp < limit:
     weatherRequest = requests.get(baseUrl + str(timestamp) + exclude)
     weatherJson = weatherRequest.json()
 
     for data in weatherJson['daily']['data']:
-        if header == False:
-            csvWriter.writerow(data.keys())
-            header = True
-        csvWriter.writerow(data.values())
+        csvWriter.writerow([data["summary"],
+        					data["icon"],
+        					data["precipIntensity"],
+        					data["precipIntensityMax"],
+        					data["temperatureHigh"],
+        					data["temperatureHighTime"],
+        					data["temperatureLow"],
+        					data["temperatureLowTime"],
+        					data["humidity"],
+        					data["pressure"],
+        					data["windSpeed"],
+        					data["cloudCover"],
+        					data["visibility"]])
+
     print("Weather from: " + datetime.utcfromtimestamp(timestamp).strftime("%d/%m/%Y"))
     timestamp += 604800
-
 
 print ("weather.csv is ready! :)")
