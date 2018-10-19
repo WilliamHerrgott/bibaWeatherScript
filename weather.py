@@ -3,7 +3,7 @@ import requests
 
 from datetime import datetime
 
-apiKey = "7d21e4370d68439b4ffd363d1dd7acf4"
+apiKey = "[Your darksky API key]"
 
 # We only want the daily informations
 excludedFlags = "currently,flags,hourly,minutely"
